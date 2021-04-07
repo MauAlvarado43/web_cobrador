@@ -1,0 +1,77 @@
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand">Cobrador App</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bi bi-list" style="color: #fff; font-size: 25px;"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto">
+
+            <% if(user == 'cobrador' || user == 'gerente') { %>
+
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link <%= (url == '/'+user+'/solicitudes') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/solicitudes">Solicitudes</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link <%= (url == '/'+user+'/cobro') ? 'nav-link-active' : '' %>" href="/<%= user %>/cobro">Cobrar</a>
+                </li>
+                <!-- <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link <%= (url == '/'+user+'/renovaciones') ? 'nav-link-active' : '' %>" href="/<%= user %>/renovaciones">Renovaciones</a>
+                </li> -->
+
+            <% } if(user == 'gerente'){ %>
+
+                <li class="nav-item">
+                    <a class="nav-link <%= (url == '/'+user+'/nuevo_cliente') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/nuevo_cliente">Nuevos clientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <%= (url == '/'+user+'/caja') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/caja">Caja</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <%= (url == '/'+user+'/autorizacion') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/autorizacion">Autorización</a>
+                </li>
+
+            <% } if(user == 'contador' || user == 'director'){ %>
+
+                <li class="nav-item">
+                    <a class="nav-link <%= (url == '/'+user+'/cuadres') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/cuadres">Cuadres de caja</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <%= (url == '/'+user+'/pagos_sucursales') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/pagos_sucursales">Pagos sucursales</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link <%= (url == '/'+user+'/validacion_clientes') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/validacion_clientes">Validación de clientes</a>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link <%= (url == '/'+user+'/autorizacion') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/autorizacion">Autorización de Créditos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <%= (url == '/'+user+'/reportes') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/reportes">Reportes</a>
+                </li>
+
+            <% } if(user == 'director'){ %>
+
+                <li class="nav-item">
+                    <a class="nav-link <%= (url == '/'+user+'/estados') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/estados">Estados de cuenta</a>
+                </li>
+
+            <% } %>
+
+        </ul>
+
+        <% if(user != 'common'){ %>
+
+        <hr style="color: #fff;">
+        <form class="d-flex">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Cerrar sesión</a>
+                </li>
+            </ul>
+        </form>
+
+        <% } %>
+
+      </div>
+    </div>
+</nav>

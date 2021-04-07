@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/css/master.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="/js/JSEncrypt.js"></script>
+    <script src="/js/script.js"></script>
+
+    <title>Cobrador</title>
+</head>
+<body>
+
+    <%- include("./components/nav", {url: url, user: user}) %>
+
+    <section style="min-height: 80vh;">
+      <div class="container mt-5 mb-5">
+        <h1 class="text-center">Estados de cuenta</h1>
+        <hr class="star-light">
+        <div class="mt-5 w-80">
+          <form class="row mt-3">
+            <div class="col-md-6 mb-3">
+              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="lapseState">
+                <option selected>Seleccione un periodo ...</option>
+                <option value="7">1 semana</option>
+                <option value="15">2 semanas</option>
+                <option value="31">1 mes</option>
+                <option value="62">2 meses</option>
+              </select>
+            </div>
+            <div class="col-md-6 mb-3">
+              <button type="button" class="btn btn-primary btn-lg" onclick="getState(event)">Generar estado</button>
+            </div>
+          </form>
+          <div class="mt-5" id="infoState">
+            <h3 id="titleState"></h3>
+            <h4 id="totalState"></h4>
+            <h4></h4>
+            <h4></h4>
+            <h4></h4>
+            <h4></h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <%- include("./components/footer") %>
+
+</body>
+</html>

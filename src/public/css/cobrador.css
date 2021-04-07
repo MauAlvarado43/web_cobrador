@@ -1,0 +1,37 @@
+body {
+  max-width: 100%;
+}
+body .main {
+  min-height: 60vh;
+  font-size: 18px;
+}
+body .main .clients button {
+  background-color: #1a7b80;
+  color: #fff;
+  border-width: 2px 2px 2px 2px !important;
+  border-color: #fff;
+  font-weight: bold;
+}
+body .main .clients button:hover {
+  background-color: #fff;
+  color: #1a7b80;
+  border-width: 2px 2px 2px 2px !important;
+  border-color: #1a7b80;
+  font-weight: bold;
+}
+body .modal .btn {
+  background-color: #1a7b80;
+  color: #fff;
+}
+body .modal .rotate {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+}

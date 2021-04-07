@@ -1,0 +1,35 @@
+@primary-color: #1a7b80;
+@secondary-color: #fff;
+
+body {
+   max-width: 100%;
+
+   .main {
+      min-height: 60vh;
+      font-size: 18px;
+      .clients{
+         button {
+            background-color: @primary-color;
+            color: @secondary-color;
+            border-width: 2px 2px 2px 2px !important;
+            border-color: @secondary-color;
+            font-weight: bold;
+   
+            &:hover {
+               background-color: @secondary-color;
+               color: @primary-color;
+               border-width: 2px 2px 2px 2px !important;
+               border-color: @primary-color;
+               font-weight: bold;
+            }
+         }
+      }
+
+   }
+   .modal{
+      .btn{
+         background-color: @primary-color;
+         color: @secondary-color;
+      }
+   }
+}
