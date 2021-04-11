@@ -37,21 +37,23 @@ router.get('/logout', (req, res) => {
 
 router.post('/login', async (req, res) => {
 
-    /*
     let rfc = decryptFront(req.body.rfc)
     let password = decryptFront(req.body.password)
     let session = req.body.session
 
     let response = await loginUser(rfc, password)
 
-    let type = decryptAPI(response.data.type)
-
     if(response.code == 201) {
 
+        let type = decryptAPI(response.data.type)
         req.session.SSID = encryptSession(JSON.stringify({
             type: decryptAPI(response.data.type),
             id: decryptAPI(response.data.id),
-            token: decryptAPI(response.data.token)
+            name: decryptAPI(response.data.name),
+            app: decryptAPI(response.data.app),
+            token: decryptAPI(response.data.token),
+            password: password,
+            rfc: rfc
         }))
 
         if(session)
@@ -66,12 +68,10 @@ router.post('/login', async (req, res) => {
         else if(type == 4)
             res.send({code: 201, data: {url: '/cobrador'}})
 
-    }
-    else {
+    }else {
         res.send(response)
     }
-    */
-    res.send({code: 201, data: {url: '/cobrador'}})
+    
 })
 
 module.exports = router
