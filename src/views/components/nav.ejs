@@ -15,9 +15,9 @@
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link <%= (url == '/'+user+'/cobro') ? 'nav-link-active' : '' %>" href="/<%= user %>/cobro">Cobrar</a>
                 </li>
-                <!-- <li class="nav-item mx-0 mx-lg-1">
+                <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link <%= (url == '/'+user+'/renovaciones') ? 'nav-link-active' : '' %>" href="/<%= user %>/renovaciones">Renovaciones</a>
-                </li> -->
+                </li>
 
             <% } if(user == 'gerente'){ %>
 
@@ -39,9 +39,9 @@
                 <li class="nav-item">
                     <a class="nav-link <%= (url == '/'+user+'/pagos_sucursales') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/pagos_sucursales">Pagos sucursales</a>
                 </li>
-                <!-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link <%= (url == '/'+user+'/validacion_clientes') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/validacion_clientes">Validación de clientes</a>
-                </li> -->
+                </li>
                 <li class="nav-item">
                     <a class="nav-link <%= (url == '/'+user+'/autorizacion') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/autorizacion">Autorización de Créditos</a>
                 </li>

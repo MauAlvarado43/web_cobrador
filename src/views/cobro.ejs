@@ -30,70 +30,114 @@
         <hr class="star-light">
         <table class="table mt-5 clients">
           <thead>
-            <th>Número</th>
             <th>Nombre</th>
+            <th>Dirección</th>
             <th>Pagos</th>
           </thead>
           <tbody>
-            <% for(let i=0; i < data.length; i++){ %>
-              <tr>
-                <td><%= (i+1) %></td>
-                <td><%= data[i].name + " " + data[i].apat + " " + data[i].amat %></td>
-                <td><button type="button" class="btn pl-3 pr-3 border" onclick="getPayments(event, '<%= data[i].curp %>', '<%= data[i].name %>')">Ver Pagos</button></td>
-              </tr>
-            <% } %>
+            <tr>
+              <td>Pepe perez</td>
+              <td>Av. Paseo de la Reforma, Juárez, Cuauhtémoc, 06500 Ciudad de México, CDMX</td>
+              <td>
+                <button type="button" class="btn pl-3 pr-3 border" data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop">Ver Pagos</button>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
 
-      <div class="modal fade" id="staticBackdropPayments" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel"></h5>
+              <h5 class="modal-title" id="staticBackdropLabel">Pagos de Pepe perez</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <div class="container" id="infoPayment">
+              <div class="row container m-0 justify-content-center">
+                <div class="p-0 col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                  <div class="card w-100">
+                    <div class="card-body">
+                      <h5 class="text-center">1</h5>
+                      <p>13 / Marzo / 2021</p>
+                      <p>Cantidad: $500.00</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-0 col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                  <div class="card w-100">
+                    <div class="card-body">
+                      <h5 class="text-center">1</h5>
+                      <p>13 / Marzo / 2021</p>
+                      <p>Cantidad: $500.00</p>
+                    </div>
+                  </div>  
+                </div>
+                <div class="p-0 col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                  <div class="card w-100">
+                    <div class="card-body">
+                      <h5 class="text-center">1</h5>
+                      <p>13 / Marzo / 2021</p>
+                      <p>Cantidad: $500.00</p>
+                    </div>
+                  </div>  
+                </div>
+                <div class="p-0 col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                  <div class="card w-100">
+                    <div class="card-body">
+                      <h5 class="text-center">1</h5>
+                      <p>13 / Marzo / 2021</p>
+                      <p>Cantidad: $500.00</p>
+                    </div>
+                  </div>  
+                </div>
+                <div class="p-0 col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                  <div class="card w-100">
+                    <div class="card-body">
+                      <h5 class="text-center">1</h5>
+                      <p>13 / Marzo / 2021</p>
+                      <p>Cantidad: $500.00</p>
+                    </div>
+                  </div>  
+                </div>
+                <div class="p-0 col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                  <div class="card w-100">
+                    <div class="card-body">
+                      <h5 class="text-center">1</h5>
+                      <p>13 / Marzo / 2021</p>
+                      <p>Cantidad: $500.00</p>
+                    </div>
+                  </div>  
+                </div>
+                <div class="p-0 col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                  <div class="card w-100">
+                    <div class="card-body">
+                      <h5 class="text-center">1</h5>
+                      <p>13 / Marzo / 2021</p>
+                      <p>Cantidad: $500.00</p>
+                    </div>
+                  </div>  
+                </div>
+                <div class="p-0 col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                  <div class="card w-100">
+                    <div class="card-body">
+                      <h5 class="text-center">1</h5>
+                      <div class="rotate">Sin pago</div>
+                    </div>
+                  </div>  
+                </div>
               </div>
-              <div class="row container m-0 justify-content-center" id="paymentsModal">
-              </div>
+
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary">Understood</button>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="modal fade" id="doPaymentModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" aria-labelledby="staticBackdropLabel" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">Registrar pago</h5>
-            </div>
-            <div class="modal-body">
-              <div class="container">
-                <form action="">
-                  <h3 class="text-center">Cantidad</h3>
-                  <div class="mb-3 mt-5">
-                      <label for="cant" class="form-label">Ingresa la cantidad del prestamo</label>
-                      <input type="number" class="form-control" id="cant" aria-describedby="cantHelp">
-                      <div id="cantHelp" class="form-text"></div>
-                  </div>
-                  <button type="button" id="btnRegisterPayment" class="btn mt-3">Registrar</button>
-              </form>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn pl-3 pr-3 border" data-bs-toggle="modal"
-              data-bs-target="#staticBackdropPayments" data-bs-dismiss="modal">Regresar a los pagos</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </section>
 
 
