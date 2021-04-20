@@ -23,8 +23,13 @@ const login = async (e) => {
     let json = await response.json()
     document.body.style.cursor = 'auto'
 
-    if (json.code != 201) {
+    if (json.code == 201) {
 
+        window.location.href = json.data.url
+
+    }else if(json.code == 700){
+        document.getElementById('changePassword').click();
+    }else {
         let alert = document.getElementById('alert')
         let html = ""
         if (json.code == 400) {
@@ -33,9 +38,6 @@ const login = async (e) => {
             html = getAlert("danger", "Usuario y/o contraseña incorrectos")
         }
         alert.innerHTML = html
-    }
-    else {
-        window.location.href = json.data.url
     }
 
 }
@@ -501,19 +503,30 @@ const getPayments = async (e, curp, name) => {
         let html = ''
         json.data.lendings.forEach(payment => {
             html += `
-                <div class="p-0 col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                    <div class="card w-100">
-                        <div class="card-body">`
+                <div class="p-0 col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">`  
             if (i == 1) {
+                html +=  `<div class="card" style="background-color: #2c627e; color: white; height: 90%; width: 90%;">
+                            <div class="card-body">`
                 html += `<h6 class="text-center">Inicio del préstamo</h6>`
             } else if (i == json.data.lendings.length) {
+                html +=  `<div class="card" style="background-color: #2c627e; color: white;  height: 90%; width: 90%;">
+                            <div class="card-body">`
                 html += `<h6 class="text-center">Fin del préstamo</h6>`
+            } else if(generateDate(decrypt(payment.fec_pag)).toDateString() == new Date().toDateString() && decrypt(payment.can_pag) == 0 && i != 1 && i != json.data.lendings.length){
+                html +=  `<div class="card" style="background-color: #95bbbc; color: white;  height: 90%; width: 90%;">
+                            <div class="card-body">`
+            }else if(decrypt(payment.can_pag) != 0){
+                html +=  `<div class="card" style="background-color: #42ab49; color: white;  height: 90%; width: 90%;">
+                    <div class="card-body">`
+            } else {
+                html +=  `<div class="card" style="background-color: #da4b45; color: white;  height: 90%; width: 90%;">
+                            <div class="card-body">`
             }
             html += `<h5 class="text-center">${i}</h5>
                             <p>${formateDate(generateDate(decrypt(payment.fec_pag)))}</p>`
 
             if (generateDate(decrypt(payment.fec_pag)).toDateString() == new Date().toDateString() && decrypt(payment.can_pag) == 0 && i != 1 && i != json.data.lendings.length) {
-                html += `<button type="button" class="btn" onclick="doPayment('${curp}')" data-bs-target="#doPaymentModal" data-bs-toggle="modal" data-bs-dismiss="modal">Registrar pago</button>`
+                html += `<button type="button" class="btn" onclick="doPayment('${curp}')" data-bs-target="#doPaymentModal" data-bs-toggle="modal" data-bs-dismiss="modal">Registrar</button>`
             } else {
                 html += `<p>Cantidad: ${decrypt(payment.can_pag)}</p>`
             }
@@ -1042,7 +1055,6 @@ const generateReport = async (e, save) => {
     let alert = document.getElementById('alert')
     
     if (json.code == 201) {
-
         let div = document.getElementById('resultReport')
         let html = `
             <table class="table">
@@ -1072,7 +1084,10 @@ const generateReport = async (e, save) => {
                             <td>${lending.can_pre * 0.20}</td>
                             <td>${lending.tot_pag}</td>`
             lending.payments.forEach(payment => {
-                html += `<td>${payment.can_pag}</td>`
+                if(payment.can_pag >= 0)
+                    html += `<td>${payment.can_pag}</td>`
+                else
+                    html += `<td> - </td>`
             })
 
             html += `   </tr>`
@@ -1465,25 +1480,142 @@ const registerEmployee = async (e) => {
 
 }
 
-const changeVisibilityPassword = () => {
-    if (document.getElementById('password').type == 'password') {
-        document.getElementById('eye-close').style.visibility = 'hidden'
-        document.getElementById('eye-open').style.visibility = 'visible'
+const changePassword = async (e) => {
 
-        document.getElementById('eye-close').style.display = 'none'
-        document.getElementById('eye-open').style.display = 'inline'
+    e.preventDefault()
 
-        document.getElementById('password').type = 'text'
+    let password = document.getElementById("passwordChange")
+    let confirmPassword = document.getElementById("confirmpasswordChange")
+
+    let passwordHelp = document.getElementById("passwordChangeHelp")
+    let confirmPasswordHelp = document.getElementById("confirmpasswordChangeHelp")
+
+    password.classList.remove("border-danger")
+    confirmPassword.classList.remove("border-danger")
+
+    passwordHelp.innerHTML = ""
+    confirmPasswordHelp.innerHTML = ""
+
+    if(password.value == ""){
+        password.classList.add("border-danger")
+        passwordHelp.innerHTML = "La contraseña no puede estar vacía"
+        return
     }
-    else {
-        document.getElementById('eye-close').style.visibility = 'visible'
-        document.getElementById('eye-open').style.visibility = 'hidden'
-
-        document.getElementById('eye-close').style.display = 'inline'
-        document.getElementById('eye-open').style.display = 'none'
-
-        document.getElementById('password').type = 'password'
+    if(confirmPassword.value == ""){
+        confirmPassword.classList.add("border-danger")
+        confirmPasswordHelp.innerHTML = "Vuelva a ingresar su contraseña"
+        return
     }
+    if(confirmPassword.value != password.value){
+        confirmPassword.classList.add("border-danger")
+        confirmPasswordHelp.innerHTML = "La contraseña debe coincidir con la de arriba"
+        return
+    }
+
+    document.body.style.cursor = 'progress'
+
+    let response = await fetch('/updatePassword', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(
+            {
+                pwd: encrypt(password.value),
+                session: document.getElementById('session').checked,
+                cfmpwd: encrypt(confirmPassword.value)
+            }
+        )
+    })
+
+    let json = await response.json()
+    document.body.style.cursor = 'auto'
+    
+    let alert = document.getElementById('alertModal')
+
+    if(json.code == 201){
+        window.location.href = "/"
+    }else if(json.code == 500){
+        alert.innerHTML = getAlert("warning", json.data)
+    }else if(json.code == 301){
+        alert.innerHTML = getAlert("danger", "Datos de autenticación erroneos, por favor vuelva a intentarlo")
+        window.setTimeout(function () {
+            location.reload()
+        }, 3500)
+    }else{
+        alert.innerHTML = getAlert("danger", "Error interno en el servidor, intentelo mas tarde")
+        window.setTimeout(function () {
+            location.reload()
+        }, 3500)
+    }
+
+}
+
+const changeVisibilityPassword = (type) => {
+    if(type == 1){
+        if (document.getElementById('password').type == 'password') {
+            document.getElementById('eye-close').style.visibility = 'hidden'
+            document.getElementById('eye-open').style.visibility = 'visible'
+    
+            document.getElementById('eye-close').style.display = 'none'
+            document.getElementById('eye-open').style.display = 'inline'
+    
+            document.getElementById('password').type = 'text'
+        }
+        else {
+            document.getElementById('eye-close').style.visibility = 'visible'
+            document.getElementById('eye-open').style.visibility = 'hidden'
+    
+            document.getElementById('eye-close').style.display = 'inline'
+            document.getElementById('eye-open').style.display = 'none'
+    
+            document.getElementById('password').type = 'password'
+        }
+    }else if(type == 2){
+        if (document.getElementById('passwordChange').type == 'password') {
+            document.getElementById('eye-close-password').style.visibility = 'hidden'
+            document.getElementById('eye-open-password').style.visibility = 'visible'
+    
+            document.getElementById('eye-close-password').style.display = 'none'
+            document.getElementById('eye-open-password').style.display = 'inline'
+    
+            document.getElementById('passwordChange').type = 'text'
+        }
+        else {
+            document.getElementById('eye-close-password').style.visibility = 'visible'
+            document.getElementById('eye-open-password').style.visibility = 'hidden'
+    
+            document.getElementById('eye-close-password').style.display = 'inline'
+            document.getElementById('eye-open-password').style.display = 'none'
+    
+            document.getElementById('passwordChange').type = 'password'
+        }
+    }else if(type == 3){
+        if (document.getElementById('confirmpasswordChange').type == 'password') {
+            document.getElementById('eye-close-confirm-password').style.visibility = 'hidden'
+            document.getElementById('eye-open-confirm-password').style.visibility = 'visible'
+    
+            document.getElementById('eye-close-confirm-password').style.display = 'none'
+            document.getElementById('eye-open-confirm-password').style.display = 'inline'
+    
+            document.getElementById('confirmpasswordChange').type = 'text'
+        }
+        else {
+            document.getElementById('eye-close-confirm-password').style.visibility = 'visible'
+            document.getElementById('eye-open-confirm-password').style.visibility = 'hidden'
+    
+            document.getElementById('eye-close-confirm-password').style.display = 'inline'
+            document.getElementById('eye-open-confirm-password').style.display = 'none'
+    
+            document.getElementById('confirmpasswordChange').type = 'password'
+        }
+    }
+
 }
 
 const generateDate = (info) => {

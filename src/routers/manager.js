@@ -101,7 +101,7 @@ router.get('/gerente/cobro', async (req, res) => {
                 item.amat = decryptAPI(item.amat)
                 item.curp = decryptAPI(item.curp)
             })
-            res.render('cobro', {url: '/gerente/cobro', user: "gerente", data: response.data})
+            res.render('cobro', {url: '/gerente/cobro', user: "gerente", data: response.data, type: 'cobro'})
         }else{
             res.send(response);
         }

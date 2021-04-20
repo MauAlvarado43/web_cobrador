@@ -18,17 +18,17 @@
                 <li class="nav-item mx-0 mx-lg-1">
                     <a class="nav-link <%= (url == '/'+user+'/renovaciones') ? 'nav-link-active' : '' %>" href="/<%= user %>/renovaciones">Renovaciones</a>
                 </li>
-            <% } if(user == 'cobrador') { %>
-
-                <!-- <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link <%= (url == '/'+user+'/ver_cobros') ? 'nav-link-active' : '' %>" href="/<%= user %>/ver_cobros">Ver Cobros</a>
-                </li> -->
-
-            <% } if(user == 'gerente'){ %>
-
                 <li class="nav-item">
                     <a class="nav-link <%= (url == '/'+user+'/nuevo_cliente') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/nuevo_cliente">Nuevos clientes</a>
                 </li>
+            <% } if(user == 'cobrador') { %>
+
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link <%= (url == '/'+user+'/ver_cobros') ? 'nav-link-active' : '' %>" href="/<%= user %>/ver_cobros">Ver Cobros Asignados</a>
+                </li>
+
+            <% } if(user == 'gerente'){ %>
+
                 <li class="nav-item">
                     <a class="nav-link <%= (url == '/'+user+'/caja') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/caja">Caja</a>
                 </li>
@@ -47,25 +47,22 @@
                 <li class="nav-item">
                     <a class="nav-link <%= (url == '/'+user+'/pagos_sucursales') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/pagos_sucursales">Pagos sucursales</a>
                 </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link <%= (url == '/'+user+'/validacion_clientes') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/validacion_clientes">Validación de clientes</a>
-                </li> -->
                 <li class="nav-item">
                     <a class="nav-link <%= (url == '/'+user+'/autorizacion') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/autorizacion">Autorización de Créditos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <%= (url == '/'+user+'/reportes') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/reportes">Reportes</a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link <%= (url == '/'+user+'/registrar_empleado') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/registrar_empleado">Registrar empleado</a>
+                </li>
+                
             <% } if(user == 'director'){ %>
 
                 <li class="nav-item">
                     <a class="nav-link <%= (url == '/'+user+'/estados') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/estados">Estados de cuenta</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link <%= (url == '/'+user+'/registrar_empleado') ? 'nav-link-active' : '' %>" aria-current="page" href="/<%= user %>/registrar_empleado">Registrar empleado</a>
-                </li>
-
+                
             <% } %>
 
         </ul>

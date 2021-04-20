@@ -25,32 +25,65 @@
   <%- include("./components/nav", {url: url, user: user}) %>
 
     <section class="main mt-5 mb-5" style="min-height: 80vh;">
-      <div class="container">
-        <h1 class="text-center">Cobrar préstamos</h1>
-        <hr class="star-light">
-        <div id="alertMain"></div>
-        <% if(data.length > 0) {%>
-          <table class="table mt-5 clients">
-            <thead>
-              <th>Número</th>
-              <th>Nombre</th>
-              <th>Pagos</th>
-            </thead>
-            <tbody>
-              <% for(let i=0; i < data.length; i++){ %>
-                <tr>
-                  <td><%= (i+1) %></td>
-                  <td><%= data[i].name + " " + data[i].apat + " " + data[i].amat %></td>
-                  <td><button type="button" class="btn pl-3 pr-3 border" onclick="getPayments(event, '<%= data[i].curp %>', '<%= data[i].name %>')">Ver Pagos</button></td>
-                </tr>
-              <% } %>
-            </tbody>
-          </table>
-        <% }else{%>
-          <h5 class="text-center mt-4">No hay coincidencias</h5>
-        <% } %>
-      </div>
-
+      <% if(type == 'cobro'){ %>
+        <div class="container">
+          <h1 class="text-center">Cobrar préstamos</h1>
+          <hr class="star-light">
+          <div id="alertMain"></div>
+          <% if(data.length > 0) {%>
+            <table class="table mt-5 clients">
+              <thead>
+                <th>Número</th>
+                <th>Nombre</th>
+                <th>Pagos</th>
+              </thead>
+              <tbody>
+                <% for(let i=0; i < data.length; i++){ %>
+                  <tr>
+                    <td><%= (i+1) %></td>
+                    <td><%= data[i].name + " " + data[i].apat + " " + data[i].amat %></td>
+                    <td><button type="button" class="btn pl-3 pr-3 border" onclick="getPayments(event, '<%= data[i].curp %>', '<%= data[i].name %>')">Ver Pagos</button></td>
+                  </tr>
+                <% } %>
+              </tbody>
+            </table>
+          <% }else{%>
+            <h5 class="text-center mt-4">No hay coincidencias</h5>
+          <% } %>
+        </div>
+      <% }else if(type == 'ver_cobros'){ %>
+        <div class="container">
+          <h1 class="text-center">Cobros Asignados</h1>
+          <hr class="star-light">
+          <div id="alertMain"></div>
+          <% if(data.length > 0) {%>
+            <table class="table mt-5 clients">
+              <thead>
+                <th>Número</th>
+                <th>Nombre</th>
+                <th>Domicilio</th>
+                <th>Telefono</th>
+                <th>Celular</th>
+                <th>Pagos</th>
+              </thead>
+              <tbody>
+                <% for(let i=0; i < data.length; i++){ %>
+                  <tr>
+                    <td><%= (i+1) %></td>
+                    <td><%= data[i].name %></td>
+                    <td><%= data[i].dom %></td>
+                    <td><%= data[i].tel %></td>
+                    <td><%= data[i].cel %></td>
+                    <td><button type="button" class="btn pl-3 pr-3 border">Ver Pagos</button></td>
+                  </tr>
+                <% } %>
+              </tbody>
+            </table>
+          <% }else{%>
+            <h5 class="text-center mt-4">No hay coincidencias</h5>
+          <% } %>
+        </div>
+      <% } %>
       <div class="modal fade" id="staticBackdropPayments" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true" style="overflow-y: scroll;">
         <div class="modal-dialog modal-lg modal-dialog-centered">
@@ -99,8 +132,9 @@
           </div>
         </div>
       </div>
-
     </section>
+
+
 
     <style>
       .form-text{

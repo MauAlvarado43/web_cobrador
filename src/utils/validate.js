@@ -117,4 +117,18 @@ const validateNewEmployee = (name, app, apm, rfc, type) => {
    return { code: 200 }
 }
 
-export { validateNewClientData, validateLapseReport, validateRegisterLending, validatePayment, validateRennovation, validateEntry, validateEgress, validateNameReport, validateNewEmployee }
+const validateUpdatePassword = (password, confirmPassword) => {
+
+   if (password == "") {
+      return { code: 500, data: "La contraseña no puede estar vacía" }
+   }
+   if (confirmPassword == "") {
+      return { code: 500, data: "Vuelva a ingresar la contraseña en confirmar contraseña" }
+   }
+   if (confirmPassword != password) {
+      return { code: 500, data: "Las contraseñas no coinciden" }
+   }
+   return { code: 200 }
+}
+
+export { validateNewClientData, validateLapseReport, validateRegisterLending, validatePayment, validateRennovation, validateEntry, validateEgress, validateNameReport, validateNewEmployee, validateUpdatePassword }

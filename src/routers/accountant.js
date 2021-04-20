@@ -97,4 +97,11 @@ router.get('/contador/reportes', (req, res) => {
         res.render('reportes_es', {url: '/contador/reportes', user: "contador"})
 })
 
+router.get('/contador/registrar_empleado', (req, res) => {
+    if(!req.session.SSID)
+        res.redirect('/')
+    else
+        res.render('registrar_empleado', {url: '/contador/registrar_empleado', user: "contador"})
+})
+
 module.exports = router

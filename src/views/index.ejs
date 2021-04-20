@@ -50,7 +50,7 @@
             <label for="password" class="form-label">Contraseña</label>
             <div class="input-group mb-3">
               <input type="password" class="form-control" id="password" autocomplete="current-password">
-              <span class="input-group-text" style="cursor: pointer;" onclick="changeVisibilityPassword()">
+              <span class="input-group-text" style="cursor: pointer;" onclick="changeVisibilityPassword(1)">
                 <i class="bi bi-eye-slash" id="eye-close"></i>
                 <i class="bi bi-eye" id="eye-open" style="visibility: hidden; display: none;"></i>
               </span>
@@ -67,6 +67,54 @@
       </div>
     </div>
 
+    <input type="hidden" class="btn btn-primary" id="changePassword" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+
+    <div class="modal fade" id="changePasswordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="changePasswordLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="changePasswordLabel">Cambie su contraseña</h5>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <div id="alertModal"></div>
+              <form class="w-80 mt-2">
+                <div class="mb-3">
+                  <label for="passwordChange" class="form-label">Contraseña</label>
+                  <div class="input-group mb-3">
+                    <input type="password" class="form-control border" id="passwordChange" aria-describedby="passwordChangeHelp">
+                    <span class="input-group-text" style="cursor: pointer;" onclick="changeVisibilityPassword(2)">
+                      <i class="bi bi-eye-slash" id="eye-close-password"></i>
+                      <i class="bi bi-eye" id="eye-open-password" style="visibility: hidden; display: none;"></i>
+                    </span>
+                  </div>
+                  <div id="passwordChangeHelp" class="form-text"></div>
+                </div>
+                <div class="mb-3">
+                  <label for="confirmpasswordChange" class="form-label">Confirmar contraseña</label>
+                  <div class="input-group mb-3">
+                    <input type="password" class="form-control border" id="confirmpasswordChange" aria-describedby="confirmpasswordChangeHelp">
+                    <span class="input-group-text" style="cursor: pointer;" onclick="changeVisibilityPassword(3)">
+                      <i class="bi bi-eye-slash" id="eye-close-confirm-password"></i>
+                      <i class="bi bi-eye" id="eye-open-confirm-password" style="visibility: hidden; display: none;"></i>
+                    </span>
+                  </div>
+                  <div id="confirmpasswordChangeHelp" class="form-text"></div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="changePassword(event)">Cambiar contraseña</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>
+      .form-text{
+        color: red;
+      }
+    </style>
     <%- include("./components/footer") %>
 
 </body>

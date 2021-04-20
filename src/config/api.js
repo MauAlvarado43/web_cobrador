@@ -899,11 +899,11 @@ const randomAssigned = async (SSID) => {
 
 }
 
-const checkAssigned = async (SSID) => {
+const getAssigned = async (SSID) => {
 
     let session = JSON.parse(decryptSession(SSID))
 
-    let response = await fetch(URL + '/checkAssigned', {
+    let response = await fetch(URL + '/getAssigned', {
         method: 'POST',
         mode: 'cors',
         cache: 'no-cache',
@@ -928,4 +928,34 @@ const checkAssigned = async (SSID) => {
 
 }
 
-export { loginUser, getClients, registerEmployee, checkAssigned, getClientsWithRennovation, randomAssigned, getClientLendingRennovation, responseRennovation, getActiveLendings, getClientLending, registerClient, getClient, requestLending, getPayments, requestPayment, getSucursalTotal, registerEntry, registerEgress, getClientsWithLendingRevision, getClientRevision, responseLending, getEntriesEgress, getPaymentsSucursal, generateReportLendings, getReportsName, getReport, downloadReport, deleteReport, getAccountStatus, requestIncreaseDate }
+const updatePassword = async (DATA, pwd) => { 
+
+    let session = JSON.parse(decryptSession(DATA))
+
+    let response = await fetch(URL + '/updatePassword', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'id': encryptAPI(session.id),
+            'type': encryptAPI(session.type),
+            'token': encryptAPI(session.token),
+            'rfc': encryptAPI(session.rfc),
+            'password': encryptAPI(session.password)
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(
+            {
+                pwd: encryptAPI(pwd)
+            }
+        )
+    })
+
+    let json = await response.json()
+    return json
+}
+
+export { loginUser, getClients, updatePassword, registerEmployee, getAssigned, getClientsWithRennovation, randomAssigned, getClientLendingRennovation, responseRennovation, getActiveLendings, getClientLending, registerClient, getClient, requestLending, getPayments, requestPayment, getSucursalTotal, registerEntry, registerEgress, getClientsWithLendingRevision, getClientRevision, responseLending, getEntriesEgress, getPaymentsSucursal, generateReportLendings, getReportsName, getReport, downloadReport, deleteReport, getAccountStatus, requestIncreaseDate }

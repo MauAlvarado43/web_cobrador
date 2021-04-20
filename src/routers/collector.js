@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { decryptFront, encryptFront, encryptSession, decryptSession, decryptAPI } from '../utils/cipher'
-import { getClients, requestIncreaseDate, getActiveLendings, getClient, checkAssigned, requestLending, getPayments, requestPayment} from '../config/api'
+import { getClients, requestIncreaseDate, getActiveLendings, getClient, getAssigned, requestLending, getPayments, requestPayment} from '../config/api'
 import { validateRegisterLending, validatePayment, validateRennovation } from '../utils/validate'
 
 const router = Router()
@@ -179,11 +179,18 @@ router.get('/cobrador/cobro', async (req, res) => {
                 item.amat = decryptAPI(item.amat)
                 item.curp = decryptAPI(item.curp)
             })
-            res.render('cobro', {url: '/cobrador/cobro', user: "cobrador", data: response.data, function: "cobro"})
+            res.render('cobro', {url: '/cobrador/cobro', user: "cobrador", data: response.data, type: "cobro"})
         }else{
             res.redirect('/')
         }
     }
+})
+
+router.get('/cobrador/nuevo_cliente', (req, res) => {
+    if(!req.session.SSID)
+        res.redirect('/')
+    else
+        res.render('nuevo_cliente', {url: '/cobrador/nuevo_cliente', user: "cobrador"})
 })
 
 router.get('/cobrador/renovaciones', async (req, res) => {
@@ -204,24 +211,25 @@ router.get('/cobrador/renovaciones', async (req, res) => {
     }
 })
 
-// router.get('/cobrador/ver_cobros', async (req, res) => {
-//     if(!req.session.SSID){
-//         res.redirect('/')
-//     }else{
+router.get('/cobrador/ver_cobros', async (req, res) => {
+    if(!req.session.SSID){
+        res.redirect('/')
+    }else{
 
-//         let response = await checkAssigned(req.session.SSID)
-//         if(response.code == 201){
-//             response.data.forEach( item =>{
-//                 item.name = decryptAPI(item.name)
-//                 item.apat = decryptAPI(item.apat)
-//                 item.amat = decryptAPI(item.amat)
-//                 item.curp = decryptAPI(item.curp)
-//             })
-//             res.render('cobro', {url: '/cobrador/cobro', user: "cobrador", data: response.data, function: "ver_cobros"})
-//         }else{
-//             res.redirect('/')
-//         }
-//     }
-// })
+        let response = await getAssigned(req.session.SSID)
+        if(response.code == 201){
+            response.data.forEach( item =>{
+                item.id = decryptAPI(item.id)
+                item.name = decryptAPI(item.name)
+                item.cel = decryptAPI(item.cel)
+                item.tel = decryptAPI(item.tel)
+                item.dom = decryptAPI(item.dom)
+            })
+            res.render('cobro', {url: '/cobrador/ver_cobros', user: "cobrador", data: response.data, type: "ver_cobros"})
+        }else{
+            res.redirect('/')
+        }
+    }
+})
 
 module.exports = router
