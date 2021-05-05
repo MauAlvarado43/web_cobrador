@@ -1,200 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="/css/master.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="/css/master.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
-    crossorigin="anonymous"></script>
-  <script src="/js/JSEncrypt.js"></script>
-  <script src="/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="/js/JSEncrypt.js"></script>
+    <script src="/js/script.js"></script>
 
-  <title>Cobrador</title>
+    <title>Cobrador</title>
 </head>
-
 <body>
 
-  <%- include("./components/nav", {url: url, user: user}) %>
-
-    <section style="min-height: 80vh;">
-      <div class="container mt-5 mb-5">
-        <% if(user=='cobrador' ) {%>
-          <h1 class="text-center">Solicitar renovaciones</h1>
-          <% }else if(user=='gerente' ){ %>
-            <h1 class="text-center">Autorizar renovaciones</h1>
-            <% } %>
-              <hr class="star-light">
-              <div id="alertMain"></div>
-              <div class="mt-5 w-80">
-                <% if(data.length> 0){ %>
-                  <table class="table mt-5">
-                    <thead>
-                      <th>Número</th>
-                      <th>Nombre</th>
-                      <th>Pagos</th>
-                    </thead>
-                    <tbody>
-                      <% for(let i=0; i < data.length; i++ ){ %>
-                        <tr>
-                          <td>
-                            <%= (i+1) %>
-                          </td>
-                          <td>
-                            <%= data[i].name + " " + data[i].apat + " " + data[i].amat %>
-                          </td>
-                          <td>
-                            <% if(user=='cobrador' ){ %>
-                              <i class="bi bi-plus-square-fill" onclick="getClientLending(event, '<%= data[i].curp %>')"
-                                style="color: black; font-size: 30px; cursor: pointer;">
-                              </i>
-                              <% } else if(user=='gerente' ) { %>
-                                <i class="bi bi-plus-square-fill"
-                                  onclick="getClientLendingRennovation(event, '<%= data[i].curp %>')"
-                                  style="color: black; font-size: 30px; cursor: pointer;">
-                                </i>
-                                <% } %>
-                                  <input type="hidden" class="btn btn-primary" id="buttonOpenModalRenovation"
-                                    data-bs-target="#dataLendingClientRenovationModal" data-bs-toggle="modal"
-                                    data-bs-dismiss="modal">
-                          </td>
-                        </tr>
-                        <% } %>
-                    </tbody>
-                  </table>
-                  <% }else{ %>
-                    <h5 class="text-center mt-4">No hay coincidencias</h5>
-                    <% } %>
-              </div>
-      </div>
-    </section>
-
-    <!-- Modal -->
-    <div class="modal fade" id="dataLendingClientRenovationModal" tabindex="-1" aria-labelledby="staticBackdropLabel"
-      aria-hidden="true" style="overflow-y: scroll;">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Datos del préstamo</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="container mt-3">
-              <h2 class="text-center">Datos del cliente</h2>
-              <div class="mt-4">
-                <p id="nameClientRenovationModal"></p>
-                <p id="curpClientRenovationModal"></p>
-                <fieldset disabled><input type="hidden" id="curpClientRenovationModalInput"></fieldset>
-              </div>
-              <h2 class="text-center mt-5">Contacto</h2>
-              <div class="mt-4">
-                <p id="telClientRenovationModal"></p>
-                <p id="celClientRenovationModal"></p>
-                <p id="domClientRenovationModal"></p>
-              </div>
-              <h2 class="text-center mt-5">Foto del cliente</h2>
-              <div class="mt-4" id="fotClientRenovationModal">
-              </div>
-              <h2 class="text-center mt-5">Foto del INE</h2>
-              <div class="mt-4" id="ineClientRenovationModal">
-              </div>
-              <h2 class="text-center mt-5">Foto del comprobante de domicilio</h2>
-              <div class="mt-4" id="fotDomClientRenovationModal">
-              </div>
-              <h2 class="text-center mt-5">Detalles del préstamo</h2>
-              <div class="mt-4">
-                <p id="amountClientRenovationModal"></p>
-                <p id="interestsClientRenovationModal"></p>
-                <p id="dateClientRenovationModal"></p>
-                <p id="commentsClientRenovationModal"></p>
-              </div>
-              <% if(user=='cobrador' ){ %>
-                <div class="mt-4">
-                  <form action="">
-                    <button type="button" class="btn btn-primary mt-3" data-bs-target="#increaseRenovationModal"
-                      data-bs-toggle="modal" data-bs-dismiss="modal" style="background-color: #1a7b80;">Aumentar fecha
-                      límite</button>
-                    <button type="button" class="btn btn-primary mt-3" onclick="registerLending(event)"
-                      style="background-color: #1a7b80;" disabled>Renovar crédito</button>
-                  </form>
-                </div>
-                <% }else if(user=='gerente' ){ %>
-                  <h2 class="text-center mt-5">Detalles de la renovación</h2>
-                  <div id="alertManager"></div>
-                  <div class="mt-4">
-                    <p id="typeRenovationClient"></p>
-                    <p id="daysIncreaseClient"></p>
-                    <p id="reasonRenovationClient"></p>
-                  </div>
-                  <div class="mt-4">
-                    <form action="">
-                      <button type="button" class="btn btn-primary mt-3" onclick="responseRennovation(event, true)"
-                        style="background-color: #1a7b80;">Aceptar</button>
-                      <button type="button" class="btn btn-danger mt-3"
-                        onclick="responseRennovation(event, false)">Declinar</button>
-                    </form>
-                  </div>
-                  <% } %>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-      </div>
+    <%- include("./components/nav", {url: url, user: user}) %>
+  
+    <div>
+      Renovaciones
     </div>
 
-    <% if(user=='cobrador' ){ %>
-      <div class="modal fade" id="increaseRenovationModal" tabindex="-1" aria-labelledby="staticBackdropLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">Aumento de la fecha límite</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="container mt-4">
-                <div id="alert"></div>
-                <form>
-                  <div class="mb-3">
-                    <label for="increaseDays" class="form-label">Días a aumentar</label>
-                    <input type="number" class="form-control" id="increaseDays" aria-describedby="increaseDaysHelp">
-                    <div id="increaseDaysHelp" class="form-text fw-bold"></div>
-                  </div>
-                  <div class="mb-3">
-                    <label for="reasonRenovation" class="form-label">Motivo</label>
-                    <textarea class="form-control" placeholder="Escribe la razón" id="reasonRenovation"
-                      aria-describedby="reasonRenovationHelp" style="height: 100px"></textarea>
-                  </div>
-                  <button type="button" class="btn btn-primary mt-3" style="background-color: #1a7b80;"
-                    onclick="requestIncreaseDate(event)">Registrar</button>
-                </form>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <a class="btn btn-primary" style="background-color: #1a7b80;" data-bs-dismiss="modal"
-                href="#dataLendingClientRenovationModal" data-bs-toggle="modal" role="button">Regresar a la información
-                del préstamo</a>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <% } %>
-        <style>
-          .form-text {
-            color: red;
-          }
-        </style>
-        <%- include("./components/footer") %>
+    <%- include("./components/footer") %>
 
 </body>
-
 </html>

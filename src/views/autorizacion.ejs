@@ -1,126 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="/css/master.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="/css/master.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
-    crossorigin="anonymous"></script>
-  <script src="/js/JSEncrypt.js"></script>
-  <script src="/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="/js/JSEncrypt.js"></script>
+    <script src="/js/script.js"></script>
 
-  <title>Cobrador</title>
+    <title>Cobrador</title>
 </head>
-
 <body>
 
-  <%- include("./components/nav", {url: url, user: user}) %>
+    <%- include("./components/nav", {url: url, user: user}) %>
 
-
-    <section style="min-height: 80vh;">
-      <div class="container mt-5 mb-5">
-        <h1 class="text-center">Autorizar préstamos</h1>
-        <hr class="star-light">
-        <div id="alertMain"></div>
-        <div class="mt-5 w-80">
-          <% if(data.length> 0) {%>
-            <table class="table">
-              <thead>
-                <th>#</th>
-                <th>Nombre completo</th>
-                <th>Acción</th>
-              </thead>
-              <tbody>
-                <% for(let i=0; i < data.length; i++) { %>
-                  <tr>
-                    <td>
-                      <%= (i+1) %>
-                    </td>
-                    <td>
-                      <%= data[i].name + " " + data[i].apat + " " + data[i].amat %>
-                    </td>
-                    <td><i class="bi bi-plus-square-fill" onclick="getClientDataLending('<%= data[i].curp %>')"
-                        style="color: black; font-size: 30px; cursor: pointer;"></i></td>
-                  </tr>
-                  <% } %>
-              </tbody>
-            </table>
-            <% }else{ %>
-              <h5 class="text-center mt-4">No hay coincidencias</h5>
-            <% } %>
-        </div>
-      </div>
-    </section>
-
-    <!-- Modal -->
-    <div class="modal fade" id="dataLendingClientModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-      aria-labelledby="dataLendingClientModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="dataLendingClientModalLabel">Autorizar préstamo</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="container mt-3">
-              <h2 class="text-center">Datos del cliente</h2>
-              <div class="mt-4">
-                <p id="nameClientModal"></p>
-                <p id="curpClientModal"></p>
-                <fieldset disabled><input type="hidden" id="curpClientModalLending"></fieldset>
-              </div>
-              <h2 class="text-center mt-5">Contacto</h2>
-              <div class="mt-4">
-                <p id="telClientModal"></p>
-                <p id="celClientModal"></p>
-                <p id="domClientModal"></p>
-              </div>
-              
-              <h2 class="text-center mt-5">Foto del cliente</h2>
-              <div class="mt-4" id="fotClientModal">
-              </div>
-              <h2 class="text-center mt-5">Foto del INE</h2>
-              <div class="mt-4" id="ineClientModal">
-              </div>
-              <h2 class="text-center mt-5">Foto del comprobante de domicilio</h2>
-              <div class="mt-4" id="fotDomClientModal">
-              </div>
-
-              <h2 class="text-center mt-5">Detalles del préstamo</h2>
-              <div id="alert"></div>
-              <div class="mt-4">
-                <p id="amountClientModal"></p>
-                <p id="dateClientModal"></p>
-                <p id="commentsClientModal"></p>
-              </div>
-              <div class="row m-0 justify-content-center">
-                <div class="col-md-6">
-                  <button type="button" class="btn btn-danger mt-3"
-                    onclick="responseLending(event, false)">Declinar</button>
-                </div>
-                <div class="col-md-6">
-                  <button type="button" class="btn mt-3" onclick="responseLending(event, true)"
-                    style="background-color: #1a7b80; color: white;">Aceptar</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-      </div>
+    <div>
+      Autorización iguales o mayores que <%= (user == 'contador' || user == 'director') ? 5000 : 2000 %>
     </div>
 
     <%- include("./components/footer") %>
 
 </body>
-
 </html>

@@ -18,44 +18,9 @@
 
     <%- include("./components/nav", {url: url, user: user}) %>
 
-    <section style="min-height: 80vh;">
-      <div class="container mt-5 mb-5">
-        <h1 class="text-center">Estados de cuenta</h1>
-        <hr class="star-light">
-        <div class="mt-5 w-80">
-          <form class="row mt-3">
-            <div class="col-md-6 mb-3">
-              <div id="alert"></div>
-              <select class="form-select form-select-lg mb-3 border" aria-label=".form-select-lg example" id="lapseState">
-                <option value="0" selected>Seleccione un periodo ...</option>
-                <option value="7">1 semana</option>
-                <option value="15">2 semanas</option>
-                <option value="31">1 mes</option>
-                <option value="62">2 meses</option>
-              </select>
-              <div id="lapseStateHelp" class="form-text"></div>
-            </div>
-            <div class="col-md-6 mb-3">
-              <button type="button" class="btn btn-primary btn-lg" onclick="getState(event)">Generar estado</button>
-            </div>
-          </form>
-          <div class="mt-5" id="infoState">
-            <h3 id="titleState"></h3>
-            <h4 id="totalState"></h4>
-            <h4></h4>
-            <h4></h4>
-            <h4></h4>
-            <h4></h4>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <style>
-      .form-text{
-        color: red;
-      }
-    </style>
+    <div>
+      Estados de cuenta
+    </div>
 
     <%- include("./components/footer") %>
 
