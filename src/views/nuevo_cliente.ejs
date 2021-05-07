@@ -1,28 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="/css/master.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <link href="/css/master.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-    <script src="/js/JSEncrypt.js"></script>
-    <script src="/js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"></script>
+  <script src="/js/JSEncrypt.js"></script>
+  <script src="/js/script.js"></script>
 
-    <title>Cobrador</title>
+  <title>Cobrador</title>
 </head>
+
 <body>
 
-    <%- include("./components/nav", {url: url, user: user}) %>
 
-    <div>
-      Nuevos clientes
-    </div>
+
+  <%- include("./components/nav", {url: url, user: user}) %>
+
+    <section>
+      <div class="container mt-5 mb-5">
+        <h1 class="text-center">Registrar nuevos clientes</h1>
+        <hr class="star-light">
+        <nav aria-label="Page navigation example" class="mt-5 steps">
+          <ul class="pagination justify-content-center">
+            <li id="nav-data" class="page-item">
+              <button class="btn page-link" href="#" tabindex="-1" aria-disabled="true">Datos</button>
+            </li>
+            <li id="nav-dom" class="page-item disabled">
+              <button class="btn page-link" href="#">Domicilio</button>
+            </li>
+            <li id="nav-finish" class="page-item disabled">
+              <button class="btn page-link" href="#">Finalizar</button>
+            </li>
+          </ul>
+        </nav>
+        <div id="alert"></div>
+      </div>
+    </section>
+
+    <section id="dataClient">
+      <div class="container">
+        <div class="row m-0 justify-content-center">
+          <h2 class="text-center">Datos personales</h2>
+          <form class="w-80 mt-5">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="nameClient" class="form-label">Nombre</label>
+                <input type="text" class="form-control border" id="nameClient" aria-describedby="nameClientHelp">
+                <div id="nameClientHelp" class="form-text"></div>
+              </div>
+              <div class="col-md-6">
+                <label for="appClient" class="form-label">Apellido Paterno</label>
+                <input type="text" class="form-control border" id="appClient" aria-describedby="appClientHelp">
+                <div id="appClientHelp" class="form-text"></div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <input type="hidden" value="2" name="step">
+                <label for="apmClient" class="form-label">Apellido Materno</label>
+                <input type="text" class="form-control border" id="apmClient" aria-describedby="apmClientHelp">
+                <div id="apmClientHelp" class="form-text"></div>
+              </div>
+              <div class="col-md-6">
+                <label for="curpClient" class="form-label">CURP</label>
+                <input type="text" class="form-control border" id="curpClient" aria-describedby="curpClientHelp">
+                <div id="curpClientHelp" class="form-text"></div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="telFijoClient" class="form-label">Télefono fijo</label>
+                <input type="number" class="form-control border" id="telFijoClient" aria-describedby="telFijoClientHelp">
+                <div id="telFijoClientHelp" class="form-text"></div>
+              </div>
+              <div class="col-md-6">
+                <label for="telCelClient" class="form-label">Télefono celular</label>
+                <input type="number" class="form-control border" id="telCelClient" aria-describedby="telCelClientHelp">
+                <div id="telCelClientHelp" class="form-text"></div>
+              </div>
+            </div>
+            <div class="mb-5">
+              <button type="button" onclick="registerClientNav(event, 1, 'next')" class="btn btn-primary btn-lg mt-3"
+                style="background-color: #1a7b80;">Siguiente</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="dataAddress">
+      <div class="container mb-5">
+        <div class="row m-0 justify-content-center">
+          <h2 class="text-center">Domicilio</h2>
+          <form action="" type="" class="w-80 mt-5">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="stateClient" class="form-label">Estado</label>
+                <input type="text" class="form-control border" id="stateClient" aria-describedby="stateClientHelp">
+                <div id="stateClientHelp" class="form-text"></div>
+              </div>
+              <div class="col-md-6">
+                <label for="muniClient" class="form-label">Municipio</label>
+                <input type="text" class="form-control border" id="muniClient" aria-describedby="muniClientHelp">
+                <div id="muniClientHelp" class="form-text"></div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="colClient" class="form-label">Colonia</label>
+                <input type="text" class="form-control border" id="colClient" aria-describedby="colClientHelp">
+                <div id="colClientHelp" class="form-text"></div>
+              </div>
+              <div class="col-md-6">
+                <label for="streetClient" class="form-label">Calle</label>
+                <input type="text" class="form-control border" id="streetClient" aria-describedby="streetClientHelp">
+                <div id="streetClientHelp" class="form-text"></div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <label for="cpClient" class="form-label">C.P</label>
+                <input type="text" class="form-control border" id="cpClient" aria-describedby="cpClientHelp">
+                <div id="cpClientHelp" class="form-text"></div>
+              </div>
+              <div class="col-md-4">
+                <label for="noextClient" class="form-label">No. Exterior</label>
+                <input type="number" class="form-control border" id="noextClient" aria-describedby="noextClientHelp">
+                <div id="noextClientHelp" class="form-text"></div>
+              </div>
+              <div class="col-md-4">
+                <label for="nointClient" class="form-label">No. Interior</label>
+                <input type="number" class="form-control border" id="nointClient" aria-describedby="nointClientHelp">
+                <div id="nointClientHelp" class="form-text"></div>
+              </div>
+            </div>
+            <div class="row mb-5">
+              <div class="col-md-6">
+                <button type="button" onclick="registerClientNav(event, 2, 'next')" class="btn btn-primary btn-lg mt-3"
+                  style="background-color: #1a7b80;">Siguiente</button>
+              </div>
+              <div class="col-md-6">
+                <button type="button" onclick="registerClientNav(event, 1, 'before')"
+                  class="btn btn-danger btn-lg mt-3">Volver</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="dataIdentity">
+      <div class="container mb-5">
+        <div class="row m-0 justify-content-center">
+          <h2 class="text-center">Fotos de identidad</h2>
+          <form action="" type="" class="w-80 mt-5">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="pictureClient" class="form-label">Foto del Cliente</label>
+                <input type="file" class="form-control border" id="pictureClient" accept="image/png" aria-describedby="pictureClientHelp">
+                <div id="pictureClientHelp" class="form-text"></div>
+              </div>
+              <div class="col-md-6">
+                <label for="domClient" class="form-label">Comprobante de Domicilio</label>
+                <input type="file" class="form-control border" id="domClient" accept="image/png" aria-describedby="domClientHelp">
+                <div id="domClientHelp" class="form-text"></div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="ineClient" class="form-label">Foto del INE</label>
+                <input type="file" class="form-control border" id="ineClient" accept="image/png" aria-describedby="ineClientHelp">
+                <div id="ineClientHelp" class="form-text"></div>
+              </div>
+            </div>
+            <div class="row mb-5">
+              <div class="col-md-6">
+                <button type="button" onclick="registerClient(event)" class="btn btn-primary btn-lg mt-3"
+                  style="background-color: #1a7b80;">Finalizar</button>
+              </div>
+              <div class="col-md-6">
+                <button type="button" class="btn btn-danger btn-lg mt-3"
+                  onclick="registerClientNav(event, 2, 'before')">Volver</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .page-link {
+        background-color: #1a7b80;
+        color: #fff;
+      }
+
+      .page-link:hover {
+        background-color: #1a7b80;
+        color: #fff;
+      }
+
+      .page-link:focus {
+        background-color: #1a7b80;
+        color: #fff;
+      }
+
+      .form-text{
+        color: red;
+      }
+    </style>
+
+    <script>
+      document.getElementById("dataClient").style.display = 'block';
+      document.getElementById("dataAddress").style.display = 'none';
+      document.getElementById("dataIdentity").style.display = 'none';
+    </script>
 
     <%- include("./components/footer") %>
 
 </body>
+
 </html>

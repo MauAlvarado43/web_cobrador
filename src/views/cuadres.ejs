@@ -18,10 +18,39 @@
 
     <%- include("./components/nav", {url: url, user: user}) %>
 
-    <div>
-      Cuadres
-    </div>
-
+    <section style="min-height: 80vh;">
+      <div class="container mt-5 mb-5">
+        <h1 class="text-center">Cuadres por sucursal</h1>
+        <hr class="star-light">
+        <div id="alert"></div>
+        <div class="mt-5 w-80">
+          <% if(data.length > 0){ %>
+            <form class="row">
+              <div class="col-md-8 mb-3">
+                <select class="form-select form-select-lg mb-3 border" aria-label=".form-select-lg example" id="tallySucursal">
+                  <option value="0" selected>Seleccione una sucursal ...</option>
+                  <% for(let i = 0; i < data.length; i++ ){ %>
+                    <option value="<%= data[i].name %> "><%= data[i].name %></option>
+                  <% } %>
+                </select>
+                <div id="sucursalHelp" class="form-text"></div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <button type="button" onclick="getTally(event)" class="btn btn-primary btn-lg">Ver cuadres</button>
+              </div>
+            </form>
+            <div id="entriesEgress"></div>
+          <% } else { %>
+            <h5 class="text-center mt-4">No hay coincidencias</h5>
+          <% } %>
+        </div>
+      </div>
+    </section>
+    <style>
+      .form-text{
+        color: red;
+      }
+    </style>
     <%- include("./components/footer") %>
 
 </body>

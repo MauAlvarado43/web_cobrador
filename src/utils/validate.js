@@ -131,4 +131,20 @@ const validateUpdatePassword = (password, confirmPassword) => {
    return { code: 200 }
 }
 
-export { validateNewClientData, validateLapseReport, validateRegisterLending, validatePayment, validateRennovation, validateEntry, validateEgress, validateNameReport, validateNewEmployee, validateUpdatePassword }
+const validateSucursal = (name) => {
+    if(name == "0" || name == ""){
+       return { code: 500, data: "Seleccione una sucursal válida" }
+    }
+    return { code: 200 }
+}
+
+const validateDataSucursal = (name, dom) => {
+   if(name == ""){
+      return { code: 500, data: "El nombre de la sucursal no puede estar vacío" }
+   }else if(dom == ""){
+      return { code: 500, data: "El domicilio de la sucursal no puede estar vacío" }
+   }
+   return { code: 200 }
+}
+
+export { validateDataSucursal, validateSucursal, validateNewClientData, validateLapseReport, validateRegisterLending, validatePayment, validateRennovation, validateEntry, validateEgress, validateNameReport, validateNewEmployee, validateUpdatePassword }

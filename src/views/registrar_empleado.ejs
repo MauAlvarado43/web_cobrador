@@ -68,6 +68,16 @@
                          </select>
                          <div id="typeEmpHelp" class="form-text"></div>
                      </div>
+                     <div class="col-md-6">
+                        <label for="sucEmp" class="form-label">Sucursal</label>
+                        <select class="form-select mb-3 border" aria-label=".form-select-lg example" id="sucEmp">
+                           <option value="0" selected>Seleccione una sucursal ...</option>
+                           <% for(let i = 0; i < data.length; i++){ %>
+                              <option value="<%= data[i].name %>"><%= data[i].name %></option>
+                           <% } %>
+                         </select>
+                         <div id="sucEmpHelp" class="form-text"></div>
+                     </div>
                   </div>
                   <div class="mb-5">
                      <button type="button" onclick="registerEmployee(event)"
